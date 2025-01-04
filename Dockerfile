@@ -20,5 +20,5 @@ ENV PORT=8080
 EXPOSE ${PORT}
 
 # Update the command to use Python to run the interface directly
-CMD ["python", "interface.py"] 
+CMD ["python", "-u", "interface.py"] 
 
