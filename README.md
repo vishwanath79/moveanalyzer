@@ -2,6 +2,9 @@
 
 A web application that analyzes chess games from Chess.com using AI to provide insights and recommendations.
 
+![chessmover.png](chessmover.png)
+
+
 ## Features
 
 - 🎮 Fetch and analyze chess games from Chess.com
