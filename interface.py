@@ -30,10 +30,17 @@ def format_results_as_html(results):
     """
     
     for game in results:
-        # Format analysis with minimal spacing
-        formatted_analysis = game['analysis'].replace('\n', ' ')
-        formatted_analysis = formatted_analysis.replace('•', '<br>• ')
-        formatted_analysis = formatted_analysis.replace('  -', ' - ')
+        # Format analysis with proper indentation and spacing
+        formatted_analysis = game['analysis']
+        # Replace bullet points with styled ones
+        formatted_analysis = formatted_analysis.replace('• ', '<br><span style="color: var(--primary-500);">•</span> ')
+        # Format sub-bullets with proper indentation
+        formatted_analysis = formatted_analysis.replace('  - ', '<br>&nbsp;&nbsp;&nbsp;<span style="color: var(--primary-600);">-</span> ')
+        # Format move numbers and notations
+        formatted_analysis = formatted_analysis.replace('[Move ', '<span style="font-family: monospace; background: var(--background-fill-secondary); padding: 2px 4px; border-radius: 3px;">Move ')
+        formatted_analysis = formatted_analysis.replace(']', '</span>')
+        # Format model attribution
+        formatted_analysis = formatted_analysis.replace('Analysis by:', '<br><br><em>Analysis by:</em>')
         
         html += f"""
             <tr style="background-color: var(--background-fill-primary);">
@@ -43,8 +50,8 @@ def format_results_as_html(results):
                 <td style="padding: 12px; border-bottom: 1px solid var(--border-color-primary); font-size: 14px;">{game['result']}</td>
             </tr>
             <tr>
-                <td colspan="4" style="padding: 16px; background-color: var(--background-fill-secondary); line-height: 1.6; font-size: 14px;">
-                    <div style="margin-left: 12px;">
+                <td colspan="4" style="padding: 16px; background-color: var(--background-fill-secondary); line-height: 1.8; font-size: 14px;">
+                    <div style="margin-left: 12px; white-space: pre-line;">
                         {formatted_analysis}
                     </div>
                 </td>
@@ -90,7 +97,7 @@ with gr.Blocks(theme='Hev832/Applio', css=custom_css) as app:
             # center the button 
             gr.HTML('<a href="https://github.com/vishwanath79/moveanalyzer" target="_blank" style="text-decoration: none;"><button class="gr-button gr-button-primary">About</button></a>')
     
-    # Search section with horizontal layout for inputs and vertical for button
+    # Search section
     with gr.Column():
         gr.Markdown("### Enter your chess.com username to analyze your games", elem_classes=["instruction-text"])
         with gr.Row():
@@ -107,18 +114,32 @@ with gr.Blocks(theme='Hev832/Applio', css=custom_css) as app:
                 container=True,
                 interactive=True
             )
-        search_btn = gr.Button("Show Results", variant="primary")
+        # Add loading text and progress indicator
+        with gr.Row():
+            search_btn = gr.Button("Show Results", variant="primary", interactive=True)
+            loading = gr.HTML(visible=False, value='<div style="display: flex; align-items: center; gap: 10px;"><span class="loading"></span><span>Analyzing games...</span></div>')
 
-    # Loading indicator
+    # Status and results
     status = gr.Markdown("")
-    
-    # Results table
     with gr.Row():
         results = gr.HTML()
-    
-    # Footer
-    gr.Markdown("<center>© 2025 vishsubramanian.me</center>")
-    
+
+    # Add CSS for loading animation
+    custom_css = custom_css + """
+    .loading {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border: 3px solid rgba(0, 0, 0, 0.1);
+        border-radius: 50%;
+        border-top-color: var(--primary-500);
+        animation: spin 1s ease-in-out infinite;
+    }
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+    """
+
     def analyze_and_format(player_name: str, filter_value: str) -> tuple:
         """Analyze games and format results"""
         try:
@@ -185,11 +206,28 @@ with gr.Blocks(theme='Hev832/Applio', css=custom_css) as app:
             print(f"Error in analyze_and_format: {str(e)}")
             return f"Error: {str(e)}", ""
     
+    def analyze_with_loading(player_name: str, filter_value: str):
+        """Wrapper function to handle loading state"""
+        try:
+            # Show loading state
+            yield True, "", ""  # loading visible, clear status and results
+            
+            # Get analysis results
+            status_msg, results_html = analyze_and_format(player_name, filter_value)
+            
+            # Hide loading and show results
+            yield False, status_msg, results_html
+            
+        except Exception as e:
+            # Hide loading and show error
+            yield False, f"Error: {str(e)}", ""
+
+    # Update event handlers
     search_btn.click(
-        fn=analyze_and_format,
+        fn=analyze_with_loading,
         inputs=[player_name, result],
-        outputs=[status, results],
-        api_name="analyze"  # Add API name for better error tracking
+        outputs=[loading, status, results],
+        api_name="analyze"
     )
 
 if __name__ == "__main__":

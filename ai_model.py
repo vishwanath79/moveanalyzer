@@ -2,70 +2,73 @@ from typing import Dict, Any
 from openai import OpenAI
 import os
 import dotenv
+import google.generativeai as genai
+
 dotenv.load_dotenv()
 
-client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
-model="gpt-4o"
+# Initialize OpenAI client
+openai_client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
 
-# def generate_text(prompt, model="gpt-4o"):
-#     try:
-#         completion = client.chat.completions.create(
-#             model="gpt-4o",
-#             messages=[
-#             {"role": "developer", "content": "You are a helpful assistant."},
-#             {
-#                 "role": "user",
-#                 "content":  prompt
-#             }
-#         ]
-#     )
-#         return completion.choices[0].message.content
-#     except Exception as e:
-#         return f"An error occurred: {e}"
-    
+# Initialize Gemini
+genai.configure(api_key=os.getenv('GOOGLE_API_KEY'))
+gemini_model = genai.GenerativeModel("gemini-2.0-flash-exp")
 
+model = "gemini"
 def analyze_chess_game(game_data: Dict[Any, Any], model=model) -> str:
     """
-    Analyzes a chess game and returns a summary in bulleted format
+    Analyzes a chess game using either GPT-4 or Gemini
+    Args:
+        game_data: Dictionary containing game information
+        model: "gpt-4o" for GPT-4 or "gemini" for Google's Gemini
     """
     prompt = f"""
-    Chess Game Summary:
-    {game_data['white_player']} (White, {game_data['white_rating']}) vs 
-    {game_data['black_player']} (Black, {game_data['black_rating']})
-    
-    Game PGN:
-    {game_data['pgn']}
-    
-    Final Result: {game_data['result']}
-    
-    Please provide a brief summary of this game in the following format:
+    Analyze this chess game and provide a response in EXACTLY this format with NO deviations:
 
-    • Opening: [Opening name]
+    • Opening: [Opening name with ECO code if available]
     • Key Moments:
-      - [First key moment]
-      - [Second key moment]
-      - [Third key moment if any]
-    • Final Outcome: [How the game ended]
+      - [Move number + notation] [Brief description of the key moment]
+      - [Move number + notation] [Brief description of the key moment]
+      - [Move number + notation] [Brief description of the key moment]
+    • Final Outcome: [Concise description of how the game ended]
     • Recommendations:
-      - [First recommendation]
-      - [Second recommendation]
-      - [Third recommendation if any]
+      - [Specific move or position] [Concrete improvement suggestion]
+      - [Specific move or position] [Concrete improvement suggestion]
+      - [Specific move or position] [Concrete improvement suggestion]
 
-    Note: When referring to players, use their names instead of colors.
-    Format the response exactly as shown above with bullet points. NO spacing`
+    Chess Game Details:
+    White: {game_data['white_player']} ({game_data['white_rating']})
+    Black: {game_data['black_player']} ({game_data['black_rating']})
+    Result: {game_data['result']}
+    PGN: {game_data['pgn']}
+
+    Important formatting rules:
+    1. Use EXACT bullet points and indentation shown above
+    2. Include move numbers and notation in Key Moments
+    3. Be specific with positions in Recommendations
+    4. No extra line breaks or spacing
+    5. No additional sections or text
+    
     """
 
     try:
-        completion = client.chat.completions.create(
-            model=model,
-            messages=[
-                {"role": "developer", "content": "You are a helpful chess analysis assistant."},
-                {"role": "user", "content": prompt}
-            ]
-        )
-        return completion.choices[0].message.content
+        if model == "gpt-4o":
+            completion = openai_client.chat.completions.create(
+                model=model,
+                messages=[
+                    {"role": "system", "content": "You are a chess analysis assistant. Follow the format EXACTLY."},
+                    {"role": "user", "content": prompt}
+                ]
+            )
+            return completion.choices[0].message.content
+        elif model == "gemini":
+            response = gemini_model.generate_content(prompt)
+            return response.text
+        else:
+            return f"Error: Unsupported model {model}. Use 'gpt-4o' or 'gemini'."
     except Exception as e:
         return f"An error occurred: {e}"
     
+
+
 
 

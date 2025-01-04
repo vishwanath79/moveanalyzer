@@ -2,6 +2,6 @@ requests==2.31.0
 python-dotenv==1.0.0
 openai==1.58.1
 gradio==4.44.1
-
+google-ai-generativelanguage==0.6.10
 
 

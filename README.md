@@ -2,22 +2,26 @@
 
 A web application that analyzes chess games from Chess.com using AI to provide insights and recommendations.
 
-![chessmover.png](chessmover.png)
-
-
 ## Features
 
 - 🎮 Fetch and analyze chess games from Chess.com
-- 🤖 AI-powered game analysis using GPT-4 wiht reccomendation
-- 📊 Filter games by date range and result
+- 🤖 Dual AI Analysis:
+  - Google's Gemini 2.0 (default)
+  - OpenAI's GPT-4 (optional)
+- 📊 Filter games by:
+  - Date ranges (Today, Last 7 days, Last 30 days)
+  - Game results (wins, resignations, timeouts)
 - 🌐 Web interface built with Gradio
+- 📱 Responsive design
+- 🔄 Real-time analysis with loading indicators
+
 
 
 ## Project Structure
 
 ```
 chess-analyzer/
-├── ai_model.py          # AI analysis using OpenAI GPT-4
+├── ai_model.py          # AI analysis using Gemini/GPT-4
 ├── interface.py         # Gradio web interface
 ├── main.py             # Chess.com API integration
 ├── chess.png           # Logo image
@@ -44,8 +48,9 @@ pip install -r requirements.txt
 
 2. **Configure Environment**
 ```bash
-# Create .env file with your OpenAI API key
-echo "OPENAI_API_KEY=your_key_here" > .env
+# Create .env file with your API keys
+echo "GOOGLE_API_KEY=your_gemini_key_here" > .env
+echo "OPENAI_API_KEY=your_openai_key_here" >> .env  # Optional for GPT-4
 ```
 
 3. **Run Locally**
@@ -71,6 +76,7 @@ docker build -t chess-analyzer .
 
 # Run container
 docker run -p 8080:8080 \
+  -e GOOGLE_API_KEY=$GOOGLE_API_KEY \
   -e OPENAI_API_KEY=$OPENAI_API_KEY \
   chess-analyzer
 ```
@@ -96,7 +102,7 @@ gcloud builds submit --config cloudbuild.yaml
 
 # Set environment variables
 gcloud run services update chess-analyzer \
-  --update-env-vars "OPENAI_API_KEY=your_key"
+  --update-env-vars "GOOGLE_API_KEY=your_key,OPENAI_API_KEY=your_key"
 ```
 
 ## API Integration
@@ -107,18 +113,21 @@ The application uses Chess.com's public API to fetch:
 - Game archives
 - Game details and PGN notation
 
-### OpenAI API
-Uses GPT-4 to analyze chess games and provide:
-- Opening identification
-- Key moments analysis
-- Strategic recommendations
-- Game outcome explanation
+### AI Models
+- **Google Gemini 2.0 (Default)**
+  - Latest version of Gemini
+  - Optimized for chess analysis
+  - Faster response times
+  
+- **OpenAI GPT-4 (Optional)**
+  - Alternative model option
+  - Can be enabled by setting model="gpt-4o"
 
 ## Features in Detail
 
 ### Game Analysis
 - Fetches recent games from Chess.com
-- Provides AI-powered analysis of each game
+- Provides AI-powered analysis using Gemini or GPT-4
 - Identifies openings and key positions
 - Offers strategic recommendations
 
@@ -136,8 +145,8 @@ Uses GPT-4 to analyze chess games and provide:
 
 ### User Interface
 - Clean, modern design
+- Loading indicators for analysis
 - Responsive layout
-- Real-time analysis updates
 - Easy-to-read game summaries
 
 ## Contributing

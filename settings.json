@@ -1,0 +1,10 @@
+{
+    "notifications.enabled": false,
+    "window.dialogStyle": "none",
+    "extensions.ignoreRecommendations": true,
+    "update.mode": "none",
+    "update.showReleaseNotes": false,
+    "workbench.enableExperiments": false,
+    "workbench.notifications.enabled": false,
+    "problems.decorations.enabled": false
+} 
