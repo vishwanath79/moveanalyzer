@@ -69,6 +69,13 @@ custom_css = """
     margin-right: 2rem !important;
     display: block !important;
 }
+
+.instruction-text {
+    margin: 1rem 0 !important;
+    color: var(--body-text-color) !important;
+    font-size: 1.1rem !important;
+    text-align: left !important;
+}
 """
 
 # Create the Gradio interface with Applio theme
@@ -85,6 +92,7 @@ with gr.Blocks(theme='Hev832/Applio', css=custom_css) as app:
     
     # Search section with horizontal layout for inputs and vertical for button
     with gr.Column():
+        gr.Markdown("### Enter your chess.com username to analyze your games", elem_classes=["instruction-text"])
         with gr.Row():
             player_name = gr.Textbox(
                 label="Player Name", 
