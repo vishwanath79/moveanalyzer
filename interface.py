@@ -81,7 +81,7 @@ with gr.Blocks(theme='Hev832/Applio', css=custom_css) as app:
             gr.Markdown("# Move Analyzer")
         with gr.Column(scale=1):
             # center the button 
-            gr.HTML('<a href="https://vishsubramanian.me" target="_blank" style="text-decoration: none;"><button class="gr-button gr-button-primary">About</button></a>')
+            gr.HTML('<a href="https://github.com/vishwanath79/moveanalyzer" target="_blank" style="text-decoration: none;"><button class="gr-button gr-button-primary">About</button></a>')
     
     # Search section with horizontal layout for inputs and vertical for button
     with gr.Column():
