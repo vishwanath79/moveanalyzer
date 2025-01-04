@@ -19,5 +19,5 @@ ENV PORT=8080
 # Expose port
 EXPOSE 8080
 
-# Command to run the application
-CMD exec gradio interface.py --server.port=$PORT --server.address=0.0.0.0 
+# Update the command to use Python to run the interface directly
+CMD ["python", "interface.py"] 
