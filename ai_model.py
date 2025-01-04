@@ -43,10 +43,11 @@ def analyze_chess_game(game_data: Dict[Any, Any], model=model) -> str:
 
     Important formatting rules:
     1. Use EXACT bullet points and indentation shown above
-    2. Include move numbers and notation in Key Moments
-    3. Be specific with positions in Recommendations
-    4. No extra line breaks or spacing
-    5. No additional sections or text
+    2. Use the player names instead of colors
+    3. Include move numbers and notation in Key Moments
+    4. Be specific with positions in Recommendations
+    5. No extra line breaks or spacing
+    6. No additional sections or text
     
     """
 
