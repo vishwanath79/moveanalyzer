@@ -16,7 +16,7 @@ COPY . .
 # Set environment variables
 ENV PORT=8080
 
-# Expose port
+# Expose port 
 EXPOSE ${PORT}
 
 # Update the command to use Python to run the interface directly
