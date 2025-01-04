@@ -17,9 +17,7 @@ URL: https://chessmover-625329947111.us-central1.run.app/
 - 📊 Filter games by:
   - Date ranges (Today, Last 7 days, Last 30 days)
   - Game results (wins, resignations, timeouts)
-- 🌐 Web interface built with Gradio
-- 📱 Responsive design
-- 🔄 Real-time analysis with loading indicators
+
 
 
 
@@ -87,28 +85,6 @@ docker run -p 8080:8080 \
   chess-analyzer
 ```
 
-## API Integration
-
-### Chess.com API
-The application uses Chess.com's public API to fetch:
-- Player information
-- Game archives
-- Game details and PGN notation
-
-
-### Game Analysis
-- Fetches recent games from Chess.com
-- Provides AI-powered analysis using Gemini or GPT-4
-- Identifies openings and key positions
-- Offers strategic recommendations
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
 
 ## License
 
