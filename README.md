@@ -2,6 +2,12 @@
 
 A web application that analyzes chess games from Chess.com using AI to provide insights and recommendations.
 
+URL: https://chessmover-625329947111.us-central1.run.app/
+
+
+# show the image
+![chessmover](chessmover.png)
+
 ## Features
 
 - 🎮 Fetch and analyze chess games from Chess.com
@@ -81,30 +87,6 @@ docker run -p 8080:8080 \
   chess-analyzer
 ```
 
-## Deployment
-
-### Google Cloud Run
-
-1. **Setup Google Cloud**
-```bash
-# Initialize gcloud
-gcloud init
-gcloud config set project YOUR_PROJECT_ID
-
-# Enable required services
-gcloud services enable cloudbuild.googleapis.com run.googleapis.com
-```
-
-2. **Deploy**
-```bash
-# Submit build
-gcloud builds submit --config cloudbuild.yaml
-
-# Set environment variables
-gcloud run services update chess-analyzer \
-  --update-env-vars "GOOGLE_API_KEY=your_key,OPENAI_API_KEY=your_key"
-```
-
 ## API Integration
 
 ### Chess.com API
@@ -113,41 +95,12 @@ The application uses Chess.com's public API to fetch:
 - Game archives
 - Game details and PGN notation
 
-### AI Models
-- **Google Gemini 2.0 (Default)**
-  - Latest version of Gemini
-  - Optimized for chess analysis
-  - Faster response times
-  
-- **OpenAI GPT-4 (Optional)**
-  - Alternative model option
-  - Can be enabled by setting model="gpt-4o"
-
-## Features in Detail
 
 ### Game Analysis
 - Fetches recent games from Chess.com
 - Provides AI-powered analysis using Gemini or GPT-4
 - Identifies openings and key positions
 - Offers strategic recommendations
-
-### Filtering Options
-- **Date Filters:**
-  - Today
-  - Last 7 days
-  - Last 30 days
-- **Result Filters:**
-  - All games
-  - Wins
-  - Resignations
-  - Timeouts
-  - Abandoned games
-
-### User Interface
-- Clean, modern design
-- Loading indicators for analysis
-- Responsive layout
-- Easy-to-read game summaries
 
 ## Contributing
 
