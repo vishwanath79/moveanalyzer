@@ -2,6 +2,9 @@
 __pycache__/
 *.py[cod]
 *$py.class
+testx.py
+.scratch
+generate_icons.py
 *.so
 .Python
 build/
