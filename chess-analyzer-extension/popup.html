@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chess Game Analyzer</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <img src="icons/icon48.png" alt="Logo" class="logo">
+      <h1>Chess Game Analyzer</h1>
+    </div>
+    
+    <div class="content">
+      <div class="input-group">
+        <input type="text" id="username" placeholder="Enter chess.com username">
+        <select id="filter">
+          <option value="All">All Games</option>
+          <option value="Today">Today</option>
+          <option value="Last 7 days">Last 7 days</option>
+          <option value="Last 30 days">Last 30 days</option>
+        </select>
+      </div>
+      
+      <button id="analyze" class="primary-button">Analyze Games</button>
+      
+      <div id="loading" class="loading-spinner" style="display: none;">
+        Analyzing...
+      </div>
+      
+      <div id="results" class="results-container"></div>
+    </div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html> 
