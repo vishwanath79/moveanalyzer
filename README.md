@@ -5,7 +5,7 @@ A web application that analyzes chess games from Chess.com using AI to provide i
 URL: https://chessmover-625329947111.us-central1.run.app/
 
 
-# show the image
+
 ![chessmover](chessmover.png)
 
 ## Features
