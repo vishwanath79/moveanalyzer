@@ -2,7 +2,7 @@
 
 A web application that analyzes chess games from Chess.com using AI to provide insights and recommendations.
 
-URL: https://chessmover-625329947111.us-central1.run.app/
+Chrome extension here: https://chromewebstore.google.com/detail/chess-game-analyzer/chanagjlgmiaidodekmfpahbgmbjafkh
 
 
 
