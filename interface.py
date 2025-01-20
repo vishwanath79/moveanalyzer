@@ -190,6 +190,7 @@ with gr.Blocks(theme='Hev832/Applio', css=custom_css) as app:
                         'analysis': analysis
                     }
                     formatted_games.append(formatted_game)
+                    formatted_games.sort(key=lambda x: x['date'], reverse=True)
                     
                 except Exception as e:
                     print(f"Error processing game: {str(e)}")
