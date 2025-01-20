@@ -25,6 +25,7 @@ class ChessComAnalyzer:
         try:
             # Make the API request with headers
             response = requests.get(player_url, headers=self.headers)
+            print(player_url)
             response.raise_for_status()
             
             # Get the player data
@@ -54,6 +55,7 @@ class ChessComAnalyzer:
             archives_response.raise_for_status()
             archives_data = archives_response.json()
             
+            
             # Get the most recent archive URL
             if archives_data["archives"]:
                 latest_games_url = archives_data["archives"][-1]
@@ -66,6 +68,7 @@ class ChessComAnalyzer:
                 # Get the last game
                 if games_data["games"]:
                     last_game = games_data["games"][-1]
+                    #print(last_game)
                     return self._format_game_for_llm(last_game)
             
             return {"error": "No games found"}

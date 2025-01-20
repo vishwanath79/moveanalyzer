@@ -3,10 +3,7 @@
   "name": "Chess Game Analyzer",
   "version": "1.0",
   "description": "Analyze chess.com games with AI",
-  "permissions": [
-    "activeTab",
-    "storage"
-  ],
+  "permissions": [],
   "host_permissions": [
     "https://api.chess.com/*",
     "https://chessmover-625329947111.us-central1.run.app/*"

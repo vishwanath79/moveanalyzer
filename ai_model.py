@@ -22,7 +22,7 @@ def analyze_chess_game(game_data: Dict[Any, Any], model=model) -> str:
         model: "gpt-4o" for GPT-4 or "gemini" for Google's Gemini
     """
     prompt = f"""
-    Analyze this chess game and provide a response in EXACTLY this format with NO deviations:
+    Analyze this chess game and provide a response in EXACTLY this format with NO deviations. Sort by date in descending order:
 
     • Opening: [Opening name with ECO code if available]
     • Key Moments:
@@ -48,6 +48,7 @@ def analyze_chess_game(game_data: Dict[Any, Any], model=model) -> str:
     4. Be specific with positions in Recommendations
     5. No extra line breaks or spacing
     6. No additional sections or text
+    7. Sort the results by latest game descending
     
     """
 
