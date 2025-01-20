@@ -191,6 +191,8 @@ with gr.Blocks(theme='Hev832/Applio', css=custom_css) as app:
                     }
                     formatted_games.append(formatted_game)
                     
+                    # sort by date in descending order
+                    formatted_games.sort(key=lambda x: x['date'], reverse=True)
                 except Exception as e:
                     print(f"Error processing game: {str(e)}")
                     continue
