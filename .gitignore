@@ -61,7 +61,7 @@ Thumbs.db
 .settings/
 *.sublime-workspace
 *.sublime-project
-
+.specstory
 # Logs and databases
 *.log
 *.sqlite

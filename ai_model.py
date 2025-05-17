@@ -11,7 +11,7 @@ openai_client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
 
 # Initialize Gemini
 genai.configure(api_key=os.getenv('GOOGLE_API_KEY'))
-gemini_model = genai.GenerativeModel("gemini-2.0-flash-exp")
+gemini_model = genai.GenerativeModel("gemini-2.5-flash-preview-04-17")
 
 model = "gemini"
 def analyze_chess_game(game_data: Dict[Any, Any], model=model) -> str:
@@ -68,7 +68,7 @@ def analyze_chess_game(game_data: Dict[Any, Any], model=model) -> str:
         else:
             return f"Error: Unsupported model {model}. Use 'gpt-4o' or 'gemini'."
     except Exception as e:
-        return f"An error occurred: {e}"
+        return f"API is busy, please try again later"
     
 
 
