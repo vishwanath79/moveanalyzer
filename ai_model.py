@@ -68,7 +68,7 @@ def analyze_chess_game(game_data: Dict[Any, Any], model=model) -> str:
         else:
             return f"Error: Unsupported model {model}. Use 'gpt-4o' or 'gemini'."
     except Exception as e:
-        return f"API is busy, please try again later"
+        return f"API is busy, please try again later or reduce the number of days to analyze"
     
 
 
