@@ -11,7 +11,7 @@ openai_client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
 
 # Initialize Gemini
 genai.configure(api_key=os.getenv('GOOGLE_API_KEY'))
-gemini_model = genai.GenerativeModel("gemini-2.5-flash-preview-04-17")
+gemini_model = genai.GenerativeModel("gemini-2.5-flash-lite")
 
 model = "gemini"
 def analyze_chess_game(game_data: Dict[Any, Any], model=model) -> str:
